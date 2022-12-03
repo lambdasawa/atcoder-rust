@@ -2,8 +2,8 @@ use proconio::input;
 
 fn main() {
     input! {
-        S: String,
+        N: i64,
     }
 
-    println!("{}", S);
+    println!("{}", N * N);
 }

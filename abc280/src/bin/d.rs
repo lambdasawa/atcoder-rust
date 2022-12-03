@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use num::integer::Roots;
+use num::{integer::Roots, Integer};
 use proconio::input;
 
 fn factorize(mut n: usize) -> HashMap<usize, usize> {
@@ -29,30 +29,25 @@ fn factorize(mut n: usize) -> HashMap<usize, usize> {
 
 fn main() {
     input! {
-        K: usize,
+        mut K: usize,
     }
 
-    let mut remains = factorize(K);
-
-    for i in 2..=15 {
-        for (n, c) in factorize(i) {
-            match remains.get(&n) {
-                Some(remain) => {
-                    if remain <= &c {
-                        remains.remove(&n);
-                    } else {
-                        remains.insert(n, remain - c);
-                    }
-                }
-                None => {}
-            }
+    let mut k = K;
+    for i in 2..=K.sqrt() {
+        while k % i == 0 {
+            k /= i
         }
+    }
+    if k != 1 {
+        println!("{}", k);
+        return;
+    }
 
-        if remains.len() == 0 {
+    for i in 2..=K {
+        K /= K.gcd(&i);
+        if K == 1 {
             println!("{}", i);
             return;
         }
     }
-
-    println!("{}", K);
 }

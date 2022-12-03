@@ -5,5 +5,10 @@ fn main() {
         S: String,
     }
 
-    println!("{}", S);
+    println!(
+        "{}",
+        S.chars()
+            .map(|c| if c == 'v' { 1 } else { 2 })
+            .fold(0, |a, b| a + b)
+    );
 }

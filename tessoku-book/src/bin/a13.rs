@@ -2,8 +2,22 @@ use proconio::input;
 
 fn main() {
     input! {
-        S: String,
+        N: usize,
+        K: usize,
+        A: [isize; N],
     }
 
-    println!("{}", S);
+    let mut count = 0;
+
+    let mut r = 0;
+
+    for l in 0..N {
+        while r < N && A[r] - A[l] <= K as isize {
+            r += 1;
+        }
+
+        count += r - l - 1;
+    }
+
+    println!("{}", count);
 }

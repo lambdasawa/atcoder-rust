@@ -23,41 +23,11 @@ fn main() {
     Q.sort();
 
     for p in P {
-        if binary_search(&Q, K - p).is_some() {
+        if Q.binary_search(&(K - p)).is_ok() {
             println!("{}", "Yes");
             return;
         };
     }
 
     println!("{}", "No");
-}
-
-fn binary_search(A: &Vec<usize>, x: usize) -> Option<usize> {
-    let len = A.len();
-
-    let mut l = 0;
-
-    let mut r = len - 1;
-
-    while l <= r {
-        let m = (l + r) / 2;
-        let a = A[m];
-        if a < x {
-            if m >= len {
-                return None;
-            }
-            l = m + 1;
-        }
-        if a > x {
-            if m <= 0 {
-                return None;
-            }
-            r = m - 1;
-        }
-        if a == x {
-            return Some(m);
-        }
-    }
-
-    return None;
 }

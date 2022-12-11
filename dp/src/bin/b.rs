@@ -2,15 +2,26 @@ use proconio::{input, marker::Chars};
 
 fn main() {
     input! {
-        S: String,
-        C: Chars,
         N: usize,
-        mut M: usize,
-        NS: [usize; N],
-        MS: [usize],
-        G: [[usize; N]; N],
-        P: [(usize, usize); N],
+        K: usize,
+        H: [isize; N],
     }
 
-    println!("{}", S);
+    let H = [vec![0], H].concat();
+    let mut dp = vec![std::isize::MAX; N + 1];
+
+    dp[0] = 0;
+    dp[1] = 0;
+    dp[2] = (H[2] - H[1]).abs();
+    for i in 2..=N {
+        for j in 1..=K {
+            if i <= j {
+                break;
+            }
+
+            dp[i] = dp[i].min(dp[i - j] + (H[i] - H[i - j]).abs());
+        }
+    }
+
+    println!("{}", dp[N]);
 }

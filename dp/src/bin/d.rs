@@ -2,15 +2,23 @@ use proconio::{input, marker::Chars};
 
 fn main() {
     input! {
-        S: String,
-        C: Chars,
         N: usize,
-        mut M: usize,
-        NS: [usize; N],
-        MS: [usize],
-        G: [[usize; N]; N],
-        P: [(usize, usize); N],
+        W: usize,
+        WV: [(usize, usize); N],
     }
 
-    println!("{}", S);
+    let mut dp = vec![vec![0; W + 1]; N + 1];
+
+    for i in 0..N {
+        let (w, v) = WV[i];
+        for j in 0..=W {
+            if j < w {
+                dp[i + 1][j] = dp[i][j];
+            } else {
+                dp[i + 1][j] = dp[i][j].max(dp[i][j - w] + v);
+            }
+        }
+    }
+
+    println!("{}", dp[N][W]);
 }

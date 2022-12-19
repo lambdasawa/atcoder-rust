@@ -16,7 +16,8 @@ alias ac='cargo compete login atcoder'
 read contest # abc123
 ac new $contest
 cd $contest
-code -r .
 ac open
+code -r .
+idea .
 ac submit a
 ```
